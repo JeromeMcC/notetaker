@@ -7,7 +7,7 @@ const fs = require('fs')
 const  { v4: uuidv4 }= require ('uuid')
 //GET /notes should return the notes.html file.
 
-app.get(express.json());
+app.use(express.json());
 
 app.use(express.urlencoded({extended:true}))
 
@@ -22,8 +22,8 @@ app.get('/api/notes', (req,res) => {
 });
 
 app.post('/api/notes', (req,res) => {
-    req.body
-    console.log (req.body)
+    
+    console.log (req)
     let note ={
         title: req.body.title,
         text: req.body.text,
@@ -35,7 +35,8 @@ app.post('/api/notes', (req,res) => {
         if (err) throw err
         let savedNotes = JSON.parse(data)
         savedNotes.push(note)
-        fs.writeFile('./db/db.json',JSON.stringify(note), err =>{
+        
+        fs.writeFile('./db/db.json',JSON.stringify(savedNotes), err =>{
             if (err) throw err
             
             res.send(savedNotes);

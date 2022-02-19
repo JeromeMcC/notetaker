@@ -35,7 +35,6 @@ app.post('/api/notes', (req,res) => {
         if (err) throw err
         let savedNotes = JSON.parse(data)
         savedNotes.push(note)
-        
         fs.writeFile('./db/db.json',JSON.stringify(savedNotes), err =>{
             if (err) throw err
             
